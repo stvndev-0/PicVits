@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if picture_form.instance.pk %}
+<h1>Update Picture</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-auto">
+            {{ picture_form.title }}
+            <img src="{{ picture_form.instance.image.url }}" alt="{{ picture_form.instance.image.name }}" class="lazyload" width="236">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% else %}
+<h1>New Picture</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-auto">
+            {{ picture_form.as_p }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endif %}
+{% endblock %}
+    

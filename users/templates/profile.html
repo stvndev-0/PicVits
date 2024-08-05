@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+    
+{% block content %}
+
+<div class="mb-4">
+    <img src="{{profile_user.profile.image.url}}" alt="{{profile_user.profile.image.name}}" class="rounded-circle" height="100" width="100">
+    {{profile_user.username}}
+    
+    {% if request.user.id == profile_user.id %}
+        <a href="{% url 'update_profile' %}" class="btn btn-warning">Update info</a>
+        <a href="{% url 'update_password' %}" class="btn btn-light">Update Password</a>
+    {% endif %}
+        
+</div>
+
+<div>
+    {% for pict in profile_user.posts.all %}
+    <a href="{% url 'pict' pict.id %}">
+        <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="lazyload" width="236">
+        <p class="text-white">{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</p>
+    </a>
+        {% if request.user.id == profile_user.id %}
+    <a href="{% url 'update_picture' pict.id %}" class="btn btn-success">Update</a>
+    <a href="" class="btn btn-danger">Delete</a>
+        {% endif %}
+    {% endfor %}
+</div>
+    
+
+{% endblock %}

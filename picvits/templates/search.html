@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>Usted busco: {{searched}}</h2>
+
+
+{% if not picts %}
+    <p>No se encontro ningun resultado en su busqueda</p>
+{% else %}
+    {% for pict in picts %}
+        <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="lazyload" width="236">
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
