@@ -6,9 +6,9 @@ from .models import Profile
 from django.contrib.auth.models import User
 
 # Create your views here.
-def profile_view(request, username=None):
+def profile_view(request, username):
     current_user = get_object_or_404(User, username=username)
-    return render(request, 'profile.html', {'profile_user': current_user})
+    return render(request, 'users/profile.html', {'profile_user': current_user})
 
 @login_required
 def update_password_view(request):
@@ -20,7 +20,7 @@ def update_password_view(request):
             return redirect('profile')
     else:
         password_form = ChangePasswordForm(request.user)
-    return render(request, 'crud/update_password.html', {'password_form': password_form})
+    return render(request, 'users/crud/update_password.html', {'password_form': password_form})
 
 @login_required
 def update_profile_view(request):
@@ -31,7 +31,7 @@ def update_profile_view(request):
             return redirect('profile')
     else:
         profile_form = ProfileUpdateForm(instance=request.user)
-    return render(request, 'crud/update_profile.html', {'profile_form': profile_form})
+    return render(request, 'users/crud/update_profile.html', {'profile_form': profile_form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def login_view(request):
                 return redirect('home')
     else:
         form = LoginForm(request)
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'users/login.html', {'form': form})
 
 def register_view(request):
     if request.method == 'POST':
@@ -57,7 +57,7 @@ def register_view(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form})
 
 def logout_view(request):
     logout(request)

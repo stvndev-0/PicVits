@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+    
+{% block content %}
+
+<div class="text-center mb-4">
+    <div class="row justify-content-center my-1">
+        <div class="col-12">
+            <img src="{{profile_user.profile.image.url}}" alt="{{profile_user.profile.image.name}}" class="rounded-circle" height="100" width="100">
+        </div>
+    </div>
+    <div class="row justify-content-center my-1">
+        <div class="col-12">
+            <h1 class="text-white">{{profile_user.username}}</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center my-1">
+        <div class="col">
+            {% if request.user.id == profile_user.id %}
+            <a href="{% url 'update_password' %}" class="btn btn-light rounded-pill">Update Password</a>
+            <a href="{% url 'update_profile' %}" class="btn btn-warning rounded-pill">Edit Profile</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="text-center text-white">
+    <p>Created</p>
+</div>
+<div class="grid-container">
+    {% for pict in profile_user.posts.all %}
+    <div class="grid-box">
+        <a href="{% url 'pict' pict.id %}" class="text-decoration-none">
+            <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="img-fluid lazyload" width="236">
+            <p class="text-white">{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</p>
+        </a>
+        {% if request.user.id == profile_user.id %}
+        <a href="{% url 'update_picture' pict.id %}" class="btn btn-warning">Update</a>
+        <a class="btn btn-danger color-white" role="button" data-bs-toggle="modal" data-bs-target="#deletePost{{ pict.id }}">Delete</a>
+        {% include 'picvits/crud/delete_form.html' with pict_id=pict.id %}
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+    
+
+{% endblock %}

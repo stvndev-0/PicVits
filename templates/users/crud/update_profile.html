@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex">
+    <div class="mx-2">
+        <img src="{{user.profile.image.url}}" alt="{{user.profile.image.name}}" class="rounded-circle" width="75px" height="75px">
+    </div>
+    <div class="mx-2 align-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Change</button>
+        {% include 'users/crud/update_img.html' %}
+    </div>
+</div>
+
+<form method="post">
+    {% csrf_token %}   
+    <div class="row mb-3">
+        <label class="col-auto col-form-label">{{profile_form.username.label_tag }}</label>
+        <div class="col-auto">
+            {{ profile_form.username }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-auto col-form-label">{{ profile_form.email.label_tag }}</label>
+        <div class="col-2">
+            {{ profile_form.email }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+
+{% endblock %}

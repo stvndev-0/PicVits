@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+html, body{
+  height: 100%;
+}
+
+body{
+  background: #373B44 !important;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #4286f4, #373B44) !important;
+  background: linear-gradient(to bottom, #4286f4, #373B44) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  min-height: 100%;
+  background-size: cover;
+}
+
 .grid-container{
   margin: 20px auto;
   columns: 7;
@@ -48,7 +60,7 @@
 }
 
 .comment-section {
-  background-color: #f9f9f9;
+  height: 100%;
   padding: 20px;
   border-radius: 8px;
 }

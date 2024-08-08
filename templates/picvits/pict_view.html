@@ -2,14 +2,14 @@
 {% load static %}
 {% block content %}
 
-<button class="btn btn-primary" onclick="window.history.back()">Back</button>
+<!-- <button class="btn btn-primary" onclick="window.history.back()">Back</button> -->
 
-<div class="container">
-  <div class="row rounded" style="background-color: white;">
-    <div class="col-md-6 p-3 ">
-      <img src="{{pict.image.url}}" alt="Car Image" class="img-fluid rounded" width="508">
+<div class="d-flex justify-content-center align-items-center">
+  <div class="container p-0 d-flex rounded-5" style="background-color: white;  height: 100%; max-width: 1016px;">
+    <div class="col-sm-6">
+      <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="rounded-start-5" width="508px">
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6 ps-4" style="height: 100%; max-height: 902px; width: 508px;">
       <div class="comment-section">
         <h1>{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</h1>
         <div class="d-flex align-items-center mb-3">
@@ -22,23 +22,33 @@
         </div>
         <!-- <div class="mb-3">
           <button class="btn btn-outline-secondary btn-sm">Guardar</button>
-        </div>
+        </div> -->
         <div class="comments">
-          <div class="comment mb-3">
+          <h6>Comments</h6>
+          <!-- <div class="comment mb-3">
             <p><strong>Miaaaaa</strong> him patiently waiting for me to pull out my strap 😍</p>
             <small>1 mes</small>
             <div class="d-flex align-items-center">
               <button class="btn btn-link p-0 mr-3">Responder</button>
               <span>2</span>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="mt-4">
+        <!-- <div class="mt-4">
           <button class="btn btn-outline-danger btn-sm mr-3">❤️ 46</button>
           <button class="btn btn-outline-dark btn-sm">💔 0</button>
         </div> -->
-        <div class="mt-4">
-          <input type="text" class="form-control" placeholder="Añade un comentario">
+        <div class="mt-4 sticky-bottom">
+          <div class="border-top">
+            <div class="d-flex mt-3">
+              <div class="pe-2">
+                <img src="{{request.user.profile.image.url}}" alt="User Image" class="mr-3" width="42" height="42">
+              </div>
+              <div class="ps-2" style="width: 100%">
+                <input type="text" class="form-control rounded-pill" placeholder="Añade un comentario" >
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
