@@ -1,48 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
-<button class="btn btn-primary" onclick="window.history.back()">Back</button>
-
-<div class="container">
-  <div class="row rounded" style="background-color: white;">
-    <div class="col-md-6 p-3">
-      <img src="{{pict.image.url}}" alt="Car Image" class="img-fluid rounded" width="508">
-    </div>
-    <div class="col-md-6">
-      <div class="comment-section">
-        <h1>{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</h1>
-        <div class="d-flex align-items-center mb-3">
-          <img src="{{pict.author.profile.image.url}}" alt="User Image" class="mr-3" width="42" height="42">
-          <div>
-            <h6 class="mb-0 ps-2"><a href="{% url 'profile' pict.author.username %}" class="text-black text-decoration-none">{{pict.author.username}}</a></h6>
-            <!-- <small>4.6 mil seguidores</small> -->
-          </div>
-          <!-- <button class="btn btn-outline-primary btn-sm ml-auto">Seguir</button> -->
-        </div>
-        <!-- <div class="mb-3">
-          <button class="btn btn-outline-secondary btn-sm">Guardar</button>
-        </div>
-        <div class="comments">
-          <div class="comment mb-3">
-            <p><strong>Miaaaaa</strong> him patiently waiting for me to pull out my strap 😍</p>
-            <small>1 mes</small>
-            <div class="d-flex align-items-center">
-              <button class="btn btn-link p-0 mr-3">Responder</button>
-              <span>2</span>
-            </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <button class="btn btn-outline-danger btn-sm mr-3">❤️ 46</button>
-          <button class="btn btn-outline-dark btn-sm">💔 0</button>
-        </div> -->
-        <div class="mt-4">
-          <input type="text" class="form-control" placeholder="Añade un comentario">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endblock %}
+<!-- <small>1 mes</small> -->
+                <!-- <div class="d-flex align-items-center">
+                  <button class="btn btn-link p-0 mr-3">Responder</button>
+                  <span>2</span>
+                </div> -->

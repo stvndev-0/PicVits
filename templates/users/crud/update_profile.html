@@ -2,32 +2,53 @@
 {% load static %}
 {% block content %}
 
-<div class="d-flex">
-    <div class="mx-2">
-        <img src="{{user.profile.image.url}}" alt="{{user.profile.image.name}}" class="rounded-circle" width="75px" height="75px">
+<div class="d-flex ">
+    <div class="col-3">
+        <div class="d-flex flex-column" style="max-width: 200px;">
+            <div class="mb-1 a-bg align-self-start d-inline-block rounded-3">
+                <a id="edit-profile-link" href="{% url 'update_profile' %}" class="text-white text-decoration-none">
+                    <div class="p-2">
+                        Edit Profile
+                    </div>
+                </a>
+            </div>
+            <div class="mb-1 a-bg align-self-start d-inline-block rounded-3">
+                <a id="update-password-link" href="{% url 'update_password' %}" class="text-white text-decoration-none">
+                    <div class="p-2">
+                        Update Password
+                    </div>
+                </a>
+            </div>
+        </div>  
     </div>
-    <div class="mx-2 align-content-center">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Change</button>
-        {% include 'users/crud/update_img.html' %}
+    <div class="col-4" style="max-width: 488px;">
+        <h1 class="h3 mb-4 fw-normal text-white">Profile</h1>
+        <div class="d-flex">
+            <div class="me-2">
+                <img src="{{user.profile.image.url}}" alt="{{user.profile.image.name}}" class="rounded-circle object-fit-cover" width="75px" height="75px">
+            </div>
+            <div class="mx-2 align-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Change</button>
+                {% include 'users/crud/update_img.html' %}
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}   
+            <div class="mb-3">
+                <label class="col-auto col-form-label text-white">Username</label>
+                <div>
+                    {{ profile_form.username }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-auto col-form-label text-white">Email address</label>
+                <div>
+                    {{ profile_form.email }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
     </div>
 </div>
-
-<form method="post">
-    {% csrf_token %}   
-    <div class="row mb-3">
-        <label class="col-auto col-form-label">{{profile_form.username.label_tag }}</label>
-        <div class="col-auto">
-            {{ profile_form.username }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-auto col-form-label">{{ profile_form.email.label_tag }}</label>
-        <div class="col-2">
-            {{ profile_form.email }}
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
-
 
 {% endblock %}

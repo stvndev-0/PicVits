@@ -3,10 +3,10 @@
     
 {% block content %}
 
-<div class="text-center mb-4">
+<div class="text-center mb-3">
     <div class="row justify-content-center my-1">
         <div class="col-12">
-            <img src="{{profile_user.profile.image.url}}" alt="{{profile_user.profile.image.name}}" class="rounded-circle" height="100" width="100">
+            <img src="{{profile_user.profile.image.url}}" alt="{{profile_user.profile.image.name}}" class="rounded-circle object-fit-cover" height="100" width="100">
         </div>
     </div>
     <div class="row justify-content-center my-1">
@@ -14,21 +14,20 @@
             <h1 class="text-white">{{profile_user.username}}</h1>
         </div>
     </div>
+    {% if request.user.id == profile_user.id %}
     <div class="row justify-content-center my-1">
         <div class="col">
-            {% if request.user.id == profile_user.id %}
-            <a href="{% url 'update_password' %}" class="btn btn-light rounded-pill">Update Password</a>
             <a href="{% url 'update_profile' %}" class="btn btn-warning rounded-pill">Edit Profile</a>
-            {% endif %}
         </div>
     </div>
+    {% endif %}
 </div>
 
 <div class="text-center text-white">
     <p>Created</p>
 </div>
 <div class="grid-container">
-    {% for pict in profile_user.posts.all %}
+    {% for pict in profile_user.picts.all %}
     <div class="grid-box">
         <a href="{% url 'pict' pict.id %}" class="text-decoration-none">
             <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="img-fluid lazyload" width="236">

@@ -5,17 +5,17 @@
 <!-- <button class="btn btn-primary" onclick="window.history.back()">Back</button> -->
 
 <div class="d-flex justify-content-center align-items-center">
-  <div class="container p-0 d-flex rounded-5" style="background-color: white;  height: 100%; max-width: 1016px;">
+  <div class="container p-0 d-flex rounded-5 bg-dark" style="min-height: 40vh; max-width: 1016px;">
     <div class="col-sm-6">
-      <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="rounded-start-5" width="508px">
+      <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="rounded-start-5 object-fit-cover" width="508px">
     </div>
-    <div class="col-sm-6 ps-4" style="height: 100%; max-height: 902px; width: 508px;">
+    <div class="col-sm-6 ps-4 scrollspy-example" style="height: 100%; max-height: 902px; width: 508px;">
       <div class="comment-section">
-        <h1>{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</h1>
+        <h1 class="text-white">{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</h1>
         <div class="d-flex align-items-center mb-3">
-          <img src="{{pict.author.profile.image.url}}" alt="User Image" class="mr-3" width="42" height="42">
+          <img src="{{pict.author.profile.image.url}}" alt="User Image" class="rounded-circle object-fit-cover" width="42" height="42">
           <div>
-            <h6 class="mb-0 ps-2"><a href="{% url 'profile' pict.author.username %}" class="text-black text-decoration-none">{{pict.author.username}}</a></h6>
+            <h6 class="mb-0 ps-2"><a href="{% url 'profile' pict.author.username %}" class="text-white text-decoration-none">{{pict.author.username}}</a></h6>
             <!-- <small>4.6 mil seguidores</small> -->
           </div>
           <!-- <button class="btn btn-outline-primary btn-sm ml-auto">Seguir</button> -->
@@ -23,30 +23,77 @@
         <!-- <div class="mb-3">
           <button class="btn btn-outline-secondary btn-sm">Guardar</button>
         </div> -->
-        <div class="comments">
-          <h6>Comments</h6>
-          <!-- <div class="comment mb-3">
-            <p><strong>Miaaaaa</strong> him patiently waiting for me to pull out my strap 😍</p>
-            <small>1 mes</small>
-            <div class="d-flex align-items-center">
-              <button class="btn btn-link p-0 mr-3">Responder</button>
-              <span>2</span>
+        <div class="comments mt-5">
+          <h6 class="text-white">Comments</h6>
+          {% if pict.comment is None %}
+          <p class="text-muted-white">No hay comentarios todavía.</p>
+          {% else %}
+          {% for comment in pict.comment.all %}
+          <div data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+            <div class="comment my-3 text-white">
+              <div class="d-flex flex-row">
+                <div class="pe-2">
+                  <img src="{{comment.author.profile.image.url}}" alt="{{comment.author.profile.image.name}}" class="rounded-circle object-fit-cover" width="32" height="32">
+                </div>
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row">
+                    <p class="m-0"><strong>{{comment.author.username}} </strong>{{comment.text}}</p>
+                  </div>
+                  {% if request.user.is_authenticated %}
+                  <div class="d-flex align-items-center justify-content-space-beetwen" style="height: 25px;">
+                    <div class="me-2">
+                      <small>{{comment.created_at|date:"F j, Y"}}</small>
+                    </div>
+                    <div class="mx-2">
+                      <button class="btn btn-outline-dark btn-sm p-0 mr-3 text-white">Responder</button>
+                    </div>
+                    <div class="mx-2">
+                      <div class="dropdown-center" data-bs-theme="dark">
+                        <button class="btn rounded-circle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <div class="d-flex justify-content-center align-items-center" style="height: 24px; width: 24px;">
+                            <svg aria-hidden="true" height="12" role="img" viewBox="0 0 24 24" width="12" style="fill: white;">
+                              <path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6M3 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6m18 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6"></path>
+                            </svg>                          
+                          </div>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+                          <li><a class="dropdown-item" href="{% url 'delete_comment' comment.pict.id comment.id %}">Delete comment</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
             </div>
-          </div> -->
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
         <!-- <div class="mt-4">
           <button class="btn btn-outline-danger btn-sm mr-3">❤️ 46</button>
           <button class="btn btn-outline-dark btn-sm">💔 0</button>
         </div> -->
-        <div class="mt-4 sticky-bottom">
-          <div class="border-top">
+        <div class="mt-5 sticky-bottom border-top z-1 position-relative">
+          <div class="">
             <div class="d-flex mt-3">
+              {% if user.is_authenticated %}
               <div class="pe-2">
-                <img src="{{request.user.profile.image.url}}" alt="User Image" class="mr-3" width="42" height="42">
+                <img src="{{request.user.profile.image.url}}" alt="User Image" class="rounded-circle object-fit-cover" width="42" height="42">
               </div>
               <div class="ps-2" style="width: 100%">
-                <input type="text" class="form-control rounded-pill" placeholder="Añade un comentario" >
+                <form action="{% url 'add_comment' pict.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="comment-text" class="form-control rounded-pill" placeholder="Añade un comentario" >
+                </form>
               </div>
+              {% else %}
+              <div style="width: 100%">
+                <a href="{% url 'login' %}" class="text-decoration-none">
+                  <input type="text" class="form-control rounded-pill" placeholder="Añade un comentario" >
+                </a>
+              </div>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -54,5 +101,6 @@
     </div>
   </div>
 </div>
+
 
 {% endblock %}

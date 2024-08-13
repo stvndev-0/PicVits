@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import cache_page
-from .models import Picture
+from .models import Picture, Comment
 from .forms import PictureForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -48,6 +48,22 @@ def delete_picture_view(request, pict_id):
         pict.delete()
         return redirect(request, user)
 
+@login_required
+def add_comment_view(request, pict_id):
+    pict = get_object_or_404(Picture, id=pict_id)
+    if request.method == 'POST':
+        comment_text = request.POST['comment-text']
+        new_comment = Comment(text=comment_text, author=request.user, pict=pict)
+        new_comment.save()
+        return redirect('pict', pict_id)
+
+@login_required
+# solo el dueño del post y el author del comentario, pueden eliminar un comentario
+def delete_comment_view(request, pict_id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, pict_id=pict_id)
+    if request.user == comment.pict.author or request.user == comment.author:
+        comment.delete()
+        return redirect('pict', pict_id)
 
 def search_view(request):
     searched = request.POST['searched']

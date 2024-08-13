@@ -9,11 +9,21 @@ html, body{
 }
 
 body{
-  background: #373B44 !important;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #4286f4, #373B44) !important;
-  background: linear-gradient(to bottom, #4286f4, #373B44) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  min-height: 100%;
+  background: #1A4870 !important;
+}
+
+.bg-body{
+  background: #1A4870;
+  background: -webkit-linear-gradient(to bottom, #1A4870, #373B44);
+  background: linear-gradient(to bottom, #1A4870, #373B44);
   background-size: cover;
+  background-position: center; /* Centra la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  min-height: 100vh !important;
+}
+
+.text-muted-white{
+  color: rgb(201, 201, 201) !important;
 }
 
 .grid-container{
@@ -57,6 +67,12 @@ body{
   .grid-container{
     columns: 2;
   }
+}
+
+.a-bg:hover {
+  align-self: flex-start;
+  display: inline-block; /* Asegura que el enlace no rompa el diseño */
+  background-color: rgb(0, 0, 0, 0.6); /* Color de fondo */
 }
 
 .comment-section {

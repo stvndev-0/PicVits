@@ -24,14 +24,25 @@ def update_password_view(request):
 
 @login_required
 def update_profile_view(request):
+    user = request.user
     if request.method == 'POST':
-        profile_form = ProfileUpdateForm(request.POST or None, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST or None, instance=user)
         if profile_form.is_valid():
             profile_form.save()
-            return redirect('profile')
+            return redirect('profile', user)
     else:
         profile_form = ProfileUpdateForm(instance=request.user)
     return render(request, 'users/crud/update_profile.html', {'profile_form': profile_form})
+
+@login_required
+def change_image_view(request):
+    profile = request.user.profile
+    if request.method == 'POST' and request.FILES['file_img']:
+        img = request.FILES['file_img']
+        profile.image = img
+        profile.save()
+        return redirect('update_profile')
+
 
 def login_view(request):
     if request.method == 'POST':

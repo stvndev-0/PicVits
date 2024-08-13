@@ -11,14 +11,14 @@
         <li><a href="{% url 'home' %}" class="nav-link px-2 text-white">Home</a></li>
       </ul>
 
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"  method="post" action="{% url 'search' %}">
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"  method="post" action="{% url 'search' %}" data-bs-theme="dark">
         {% csrf_token %}
         <input type="search" class="form-control" placeholder="Search..." aria-label="Search" name="searched">
       </form>
       {% if request.user.is_authenticated %}
-      <div class="dropdown text-end">
+      <div class="dropdown text-end" data-bs-theme="dark">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="{{request.user.profile.image.url}}" alt="{{request.user.profile.image.url}}" width="32" height="32" class="rounded-circle">
+          <img src="{{request.user.profile.image.url}}" alt="{{request.user.profile.image.url}}" width="32" height="32" class="rounded-circle object-fit-cover">
         </a>
         <ul class="dropdown-menu text-small">
           <li><a class="dropdown-item" href="{% url 'new_picture' %}">New picture...</a></li>
