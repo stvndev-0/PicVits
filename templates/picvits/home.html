@@ -6,7 +6,7 @@
     {% for pict in picts %}
     <div class="grid-box">
         <a href="{% url 'pict' pict.id %}" class="text-decoration-none">
-            <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="img-fluid lazyload" width="236">
+            <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="img-fluid" loading="lazy" width="236">
             <p class="text-white">{% if pict.title is None %}{% else %}{{pict.title|truncatechars:20}}{% endif %}</p>    
         </a>
     </div>

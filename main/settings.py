@@ -72,6 +72,15 @@ DATABASES = {
     }
 }
 
+# Cache
+# mas robustos -> Redis o Memcached
+# https://docs.djangoproject.com/en/5.1/topics/cache/#local-memory-caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

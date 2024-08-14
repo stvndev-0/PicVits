@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def home_view(request):
     picts = Picture.objects.all()
     return render(request, 'picvits/home.html', {'picts': picts})
@@ -20,6 +20,8 @@ def new_picture_view(request):
     if request.method == 'POST':
         picture_form = PictureForm(request.POST, request.FILES)
         if picture_form.is_valid():
+            
+
             picture = picture_form.save(commit=False)
             picture.author = request.user
             picture.save()
