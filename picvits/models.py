@@ -7,11 +7,8 @@ import datetime
 class Picture(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='picts/')
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='picts')
-
-    def was_published_recently(self):
-        return self.created_at >= timezone.now() - datetime.timedelta(days=1)
 
     def __str__(self):
         return f'{self.title} ~ {self.author.username}'
