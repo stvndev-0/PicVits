@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class Picture(models.Model):
@@ -7,6 +9,9 @@ class Picture(models.Model):
     image = models.ImageField(upload_to='picts/')
     created_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='picts')
+
+    def was_published_recently(self):
+        return self.created_at >= timezone.now() - datetime.timedelta(days=1)
 
     def __str__(self):
         return f'{self.title} ~ {self.author.username}'

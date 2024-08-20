@@ -3,28 +3,68 @@
 {% block content %}
 
 {% if picture_form.instance.pk %}
-<h1>Update Picture</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="row">
-        <div class="col-auto">
-            {{ picture_form.title }}
-            <img src="{{ picture_form.instance.image.url }}" alt="{{ picture_form.instance.image.name }}" class="lazyload" width="236">
+<div class="d-flex justify-content-center">
+    <h1 class="text-muted-white">Update Picture</h1>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container p-0 d-flex rounded-5 bg-dark" style="min-height: 40vh; max-width: 1016px;">
+            <div class="col-sm-6">
+                <img src="{{ picture_form.instance.image.url }}" alt="{{ picture_form.instance.image.name }}" class="rounded-start-5 object-fit-cover" width="508px">
+            </div>
+            <div class="col-sm-6 ps-4 scrollspy-example" style="height: 100%; max-height: 902px; width: 508px;">
+                <div class="comment-section">
+                    <label class="text-white">Title</label>
+                    {{ picture_form.title }}
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+    </form>
+</div>
 {% else %}
-<h1>New Picture</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="row">
-        <div class="col-auto">
-            {{ picture_form.as_p }}
+<div class="d-flex justify-content-center">
+    <h1>New Picture</h1>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container p-0 d-flex rounded-5 bg-dark" style="min-height: 40vh; max-width: 1016px;">
+            <div class="col-sm-6">
+                {{ picture_form.image }}
+                <input type="file" id="imageInput" name="image">
+                <img id="preview" src="#" alt="Vista previa de la imagen" class="rounded-start-5 object-fit-cover" width="508px">
+            </div>
+            <div class="col-sm-6 ps-4 scrollspy-example" style="height: 100%; max-height: 902px; width: 508px;">
+                <div class="comment-section">
+                    <label class="text-white">Title</label>
+                    {{ picture_form.title }}
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+    </form>
+</div>
+<script>
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
+    
 {% endif %}
 {% endblock %}
     

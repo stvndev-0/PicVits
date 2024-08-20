@@ -7,5 +7,5 @@ class PictureForm(forms.ModelForm):
         model = Picture
         fields = ['title', 'image']
         widget = {
-            'image': forms.ClearableFileInput(attrs={'accept': 'image/*'})
+            'image': forms.ClearableFileInput(attrs={'accept': 'image/*', 'id': 'imageInput'})
         }

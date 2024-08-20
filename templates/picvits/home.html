@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+{% load cache %}
+{% cache 99 some_cache_key %}
 <div class="grid-container">
     {% for pict in picts %}
     <div class="grid-box">
@@ -12,7 +14,7 @@
     </div>
     {% endfor %}
 </div>
-    
+{% endcache %}
 {% endblock %}
     
     
