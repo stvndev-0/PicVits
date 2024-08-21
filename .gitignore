@@ -3,3 +3,4 @@ venv/
 .env
 /test/
 pytest.ini
+optimizar.py
