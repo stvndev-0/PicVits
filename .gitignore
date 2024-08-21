@@ -1,3 +1,4 @@
 .env
-.pytest
-.test
+pytest
+test
+optimizar

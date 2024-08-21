@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import cache_page
 from .models import Picture, Comment
@@ -12,8 +13,15 @@ def home_view(request):
     return render(request, 'picvits/home.html', {'picts': picts})
 
 def pict_view(request, pict_id):
-    pict = Picture.objects.get(id=pict_id)
-    return render(request, 'picvits/pict_view.html', {'pict': pict})
+    pict = get_object_or_404(Picture, id=pict_id)
+    context = {
+        'pict_url': pict.image.url,
+        'pict_title': pict.title,
+        'pict_author': pict.author.username,
+        'pict_author_image_url': pict.author.profile.image.url,
+        'pict_comments': pict.comment.all(),
+    }
+    return render(request, 'picvits/pict_view.html', context)
 
 @login_required
 def new_picture_view(request):

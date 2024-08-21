@@ -7,15 +7,15 @@
 <div class="d-flex justify-content-center align-items-center">
   <div class="container p-0 d-flex rounded-5 bg-dark" style="min-height: 40vh; max-width: 1016px;">
     <div class="col-sm-6">
-      <img src="{{pict.image.url}}" alt="{{pict.image.name}}" class="rounded-start-5 object-fit-cover" width="508px">
+      <img src="{{ pict_url }}" alt="{{pict_url}}" class="rounded-start-5 object-fit-cover" width="508px">
     </div>
     <div class="col-sm-6 ps-4 scrollspy-example" style="height: 100%; max-height: 902px; width: 508px;">
       <div class="comment-section">
-        <h1 class="text-white">{% if pict.title is None %} {% else %}{{pict.title}}{% endif %}</h1>
+        <h1 class="text-white">{% if pict_title is None %} {% else %}{{pict_title}}{% endif %}</h1>
         <div class="d-flex align-items-center mb-3">
-          <img src="{{pict.author.profile.image.url}}" alt="User Image" class="rounded-circle object-fit-cover" width="42" height="42">
+          <img src="{{ pict_author_image_url }}" alt="User Image" class="rounded-circle object-fit-cover" width="42" height="42">
           <div>
-            <h6 class="mb-0 ps-2"><a href="{% url 'profile' pict.author.username %}" class="text-white text-decoration-none">{{pict.author.username}}</a></h6>
+            <h6 class="mb-0 ps-2"><a href="{% url 'profile' pict_author %}" class="text-white text-decoration-none">{{ pict_author }}</a></h6>
             <!-- <small>4.6 mil seguidores</small> -->
           </div>
           <!-- <button class="btn btn-outline-primary btn-sm ml-auto">Seguir</button> -->
@@ -25,10 +25,10 @@
         </div> -->
         <div class="comments mt-5">
           <h6 class="text-white">Comments</h6>
-          {% if pict.comment is None %}
+          {% if pict_comments is None %}
           <p class="text-muted-white">No hay comentarios todavía.</p>
           {% else %}
-          {% for comment in pict.comment.all %}
+          {% for comment in pict_comments %}
           <div data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
             <div class="comment my-3 text-white">
               <div class="d-flex flex-row">
